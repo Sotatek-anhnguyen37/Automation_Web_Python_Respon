@@ -1,7 +1,9 @@
 from selenium.webdriver.common.by import By
 
+from Object.Product import Product
 
-class AmazonPage():
+
+class AmazonPage:
     def __init__(self, driver):
         self.driver = driver
 
@@ -17,6 +19,7 @@ class AmazonPage():
         self.driver.find_element(By.XPATH, self.search_button_xpath).click()
 
     def get_list_product(self):
+        list_product1 = []
         list_product = self.driver.find_elements(By.XPATH, "//div[@class='s-main-slot s-result-list s-search-results "
                                                            "sg-row']//div[@class='s-card-container s-overflow-hidden "
                                                            "aok-relative puis-include-content-margin puis "
@@ -25,12 +28,10 @@ class AmazonPage():
         for items2 in list_product:
             name = items2.find_element(By.XPATH, ".//span[@class='a-size-medium a-color-base a-text-normal']")
             if "iPhone 11" in name.text:
-
                 link = items2.find_element(By.XPATH,
                                            ".//a[@class='a-link-normal s-underline-text s-underline-link-text "
                                            "s-link-style a-text-normal']").get_attribute('href')
-                price = items2.find_element(By.XPATH, ".//span[@class='a-price-whole']")
-                print(name.text)
-                print(link)
-                print(price.text)
-                print("====================")
+                price = (float)(items2.find_element(By.XPATH, ".//span[@class='a-price-whole']").text)
+                pro = Product(name.text, link, price*23000)
+                list_product1.append(pro)
+        return list_product1
