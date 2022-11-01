@@ -19,6 +19,7 @@ class EbayPage():
 
     def get_list_product(self):
         lst = []
+        title = self.driver.title.replace("iphone | ", "")
         list_product = self.driver.find_elements(By.XPATH, self.list_product_xpath)
         print(list_product)
         for items in list_product:
@@ -28,6 +29,6 @@ class EbayPage():
                 link = items.find_element(By.XPATH,
                                           ".//div[@class='s-item__info clearfix']//a[@class='s-item__link']").get_attribute(
                     "href")
-                pro = Product(name, link, float(price))
+                pro = Product(name, link, float(price), title)
                 lst.append(pro)
         return lst
