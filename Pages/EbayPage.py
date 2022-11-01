@@ -21,7 +21,6 @@ class EbayPage():
         lst = []
         title = self.driver.title.replace("iphone | ", "")
         list_product = self.driver.find_elements(By.XPATH, self.list_product_xpath)
-        print(list_product)
         for items in list_product:
             name = items.find_element(By.XPATH, ".//div[@class='s-item__info clearfix']//span[@role='heading']").text
             price = items.find_element(By.XPATH, ".//div[@class='s-item__info clearfix']//span[@class='s-item__price']").text.replace(" VND",  "").replace(",", "")
